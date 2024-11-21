@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Novo - Psicólogo</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    .chat-container {
+        width: 90%;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    .messages {
+        height: 350px;
+        overflow-y: scroll;
+        padding: 10px;
+        margin-bottom: 15px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+
+    .message {
+        margin: 10px 0;
+        padding: 8px;
+        background-color: #e7f3e7;
+        border-radius: 5px;
+    }
+
+    .message.psychologist {
+        background-color: #d3f1fc;
+        text-align: left;
+    }
+
+    .message.user {
+        background-color: #ffebcc;
+        text-align: right;
+    }
+
+    .input-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .input-container input {
+        width: 80%;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .input-container button {
+        width: 18%;
+        padding: 12px;
+        background-color: #4CAF50;
+        color: white;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .input-container button:hover {
+        background-color: #45a049;
+    }
+
+    .message .sender {
+        font-weight: bold;
+        color: #333;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="chat-container">
+  <h1>Chat Psicólogo</h1>
+
+  <!-- Área onde as mensagens serão exibidas -->
+  <div class="messages" id="messageContainer">
+    <!-- Mensagens aparecerão aqui -->
+  </div>
+
+  <!-- Caixa de entrada e botão -->
+  <div class="input-container">
+    <input type="text" id="messageInput" placeholder="Digite sua mensagem..." />
+    <button onclick="sendMessage()">Enviar</button>
+  </div>
+</div>
+
+<script>
+  // Função para enviar a mensagem do usuário
+  function sendMessage() {
+      const messageInput = document.getElementById('messageInput');
+      const messageContainer = document.getElementById('messageContainer');
+
+      const messageText = messageInput.value.trim();
+      if (messageText !== "") {
+          // Criando a mensagem do usuário
+          const userMessage = document.createElement('div');
+          userMessage.classList.add('message', 'user');
+          userMessage.innerHTML = `<span class="sender">Você:</span> ${messageText}`;
+
+          messageContainer.appendChild(userMessage);
+          messageContainer.scrollTop = messageContainer.scrollHeight;  // Rola a tela para a última mensagem
+
+          // Limpa a caixa de entrada
+          messageInput.value = '';
+
+          // Simula uma resposta do psicólogo
+          simulatePsychologistResponse();
+      }
+  }
+
+  // Função para simular a resposta do psicólogo
+  function simulatePsychologistResponse() {
+      setTimeout(() => {
+          const messageContainer = document.getElementById('messageContainer');
+          const psychologistMessage = document.createElement('div');
+          psychologistMessage.classList.add('message', 'psychologist');
+          psychologistMessage.innerHTML = `<span class="sender">Psicólogo:</span> Como você está se sentindo hoje?`;
+
+          messageContainer.appendChild(psychologistMessage);
+          messageContainer.scrollTop = messageContainer.scrollHeight;  // Rola para a última mensagem
+      }, 1500);  // Resposta do psicólogo após 1,5 segundos
+  }
+
+  // Event listener para enviar a mensagem pressionando "Enter"
+  document.getElementById('messageInput').addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+          sendMessage();
+      }
+  });
+</script>
+
+</body>
+</html>

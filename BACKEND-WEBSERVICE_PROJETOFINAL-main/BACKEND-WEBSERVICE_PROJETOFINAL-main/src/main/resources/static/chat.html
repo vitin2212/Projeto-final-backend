@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat de Psicólogo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .chat-container {
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .messages {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 4px;
+        }
+        .message {
+            margin-bottom: 10px;
+        }
+        .message .sender {
+            font-weight: bold;
+        }
+        .input-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .input-container input {
+            width: 80%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .input-container button {
+            width: 15%;
+            padding: 8px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .input-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+    <h2>Chat com Psicólogo</h2>
+
+    <!-- Área para mostrar as mensagens -->
+    <div class="messages" id="messageContainer">
+        <!-- Mensagens serão inseridas aqui -->
+    </div>
+
+    <!-- Caixa de entrada para digitar a mensagem -->
+    <div class="input-container">
+        <input type="text" id="messageInput" placeholder="Digite sua mensagem...">
+        <button onclick="sendMessage()">Enviar</button>
+    </div>
+</div>
+
+<script>
+    function sendMessage() {
+        const messageInput = document.getElementById('messageInput');
+        const messageContainer = document.getElementById('messageContainer');
+
+        // Captura o valor digitado na caixa de mensagem
+        const messageText = messageInput.value;
+
+        if (messageText.trim() !== "") {
+            // Cria um novo elemento de mensagem e adiciona no container
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.innerHTML = `<span class="sender">Você:</span> ${messageText}`;
+
+            // Adiciona a nova mensagem no container
+            messageContainer.appendChild(messageElement);
+
+            // Desloca a visualização para a última mensagem
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+
+            // Limpa a caixa de entrada após o envio
+            messageInput.value = '';
+        }
+    }
+
+    // Para simular uma resposta do psicólogo (apenas para exemplo)
+    setInterval(() => {
+        const messageContainer = document.getElementById('messageContainer');
+        const responseElement = document.createElement('div');
+        responseElement.classList.add('message');
+        responseElement.innerHTML = `<span class="sender">Psicólogo:</span> Como você se sente hoje?`;
+
+        messageContainer.appendChild(responseElement);
+        messageContainer.scrollTop = messageContainer.scrollHeight;
+    }, 5000);  // Resposta do psicólogo a cada 5 segundos (apenas para exemplo)
+</script>
+
+</body>
+</html>

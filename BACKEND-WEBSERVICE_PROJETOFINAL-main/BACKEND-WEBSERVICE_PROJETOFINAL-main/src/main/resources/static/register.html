@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Chat Psicólogo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .register-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .input-group input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .input-group input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="register-container">
+    <h1>Registrar-se</h1>
+
+    <!-- Formulário de registro -->
+    <form id="registerForm" method="POST" action="/register">
+        <div class="input-group">
+            <label for="name">Nome Completo:</label>
+            <input type="text" id="name" name="name" placeholder="Digite seu nome" required />
+        </div>
+
+        <div class="input-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Digite seu email" required />
+        </div>
+
+        <div class="input-group">
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" placeholder="Digite sua senha" required />
+        </div>
+
+        <div class="input-group">
+            <label for="confirmPassword">Confirmar Senha:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirme sua senha" required />
+        </div>
+
+        <div class="input-group">
+            <label for="gender">Sexo:</label>
+            <select id="gender" name="gender" required>
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+                <option value="outro">Outro</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="birthdate">Data de Nascimento:</label>
+            <input type="date" id="birthdate" name="birthdate" required />
+        </div>
+
+        <div class="input-group">
+            <input type="submit" value="Criar Conta" />
+        </div>
+    </form>
+
+    <!-- Mensagem de erro -->
+    <div class="error" id="errorMessage" style="display: none;">
+        Ocorreu um erro ao registrar sua conta. Tente novamente!
+    </div>
+
+</div>
+
+<script>
+    // Função para enviar os dados do formulário de registro
+    document.getElementById('registerForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Previne o envio padrão do formulário
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const gender = document.getElementById('gender').value;
+        const birthdate = document.getElementById('birthdate').value;
+
+        // Validações de formulário
+        if (password !== confirmPassword) {
+            document.getElementById('errorMessage').innerText = 'As senhas não coincidem.';
+            document.getElementById('errorMessage').style.display = 'block';
+            return;
+        }
+
+        const isValid = name && email && password && confirmPassword && gender && birthdate;
+
+        if (isValid) {
+            // Simulação de envio de dados para o servidor
+            alert('Conta criada com sucesso!');
+            // Redirecionar ou limpar o formulário, conforme necessário
+        } else {
+            document.getElementById('errorMessage').innerText = 'Por favor, preencha todos os campos.';
+            document.getElementById('errorMessage').style.display = 'block';
+        }
+    });
+</script>
+
+</body>
+</html>
+
